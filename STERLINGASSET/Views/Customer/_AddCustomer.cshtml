@@ -1,0 +1,149 @@
+﻿
+@model STERLINGASSET.DATA.Models.TblAssetCustomer
+
+<div class="card ">
+    <div class="card-header ">
+        <h4 class="card-title text-center"> <small class="description">CUSTOMER INFOMRATION</small></h4>
+    </div>
+    <div class="card-body">
+        <div id="customer-toolbar">
+            <div class="form-group text-right">
+                <button class="btn btn-success" id="btnCustomer" data-toggle="modal" data-target="#AddNewCustomer" type="button" value="Add Customer">
+                    <i class="now-ui-icons ui-1_simple-add"></i>
+                    Add Customer
+                </button>
+            </div>
+        </div>
+        <table id="customerTable" data-toggle="table"
+               data-url="customer/listcustomer/"
+               data-search="true"
+               data-page-list="[5,10,25,50,100,150,200,250,300]"
+               data-search-align="right" 
+               data-page-size="10" 
+               data-click-to-select="true"               
+               data-toolbar="#customer-toolbar"
+               data-show-pagination-switch="true"
+               data-mobile-responsive="true"
+               data-show-refresh="true"
+               data-show-toggle="true"
+               data-show-columns="true"
+               data-detail-formatter="detailFormatter"
+               data-detail-view="true"
+               data-buttons-class="success">
+            <thead>
+                <tr>
+                    <th data-field="CustomerId" data-visible="false"></th>
+                    <th data-field="CustomerFirstName"><b>Name</b></th>
+                    <th data-field="CustomerPhoneNo"><b>Phone</b></th>
+                    <th data-field="CustomerStatus"><b>Status</b></th>
+                    <th data-field="CustomerSex"><b>Gender</b></th>        
+                    @*<th data-field="CustomerDob" data-formatter="dateFormatter"><b>Date of Birth</b></th>*@
+                    <th data-field="" data-align="right" data-events="CustomerEvents" data-formatter="CustomerFormatter">  </th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+</div>
+<div id="AddNewCustomer" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="now-ui-icons ui-1_simple-remove"></i></button>
+                <h7 class="modal-title">ADD NEW Customer </h7>
+            </div>
+            <div class="modal-body">
+                <form asp-action="AddCustomer" id="frmCustomer">
+                    @Html.AntiForgeryToken()
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    
+                    <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse" >
+                        <div class="card card-plain">
+                            <div class="card-header" role="tab" id="headingOne">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#Customer" aria-expanded="true" aria-controls="Customer">
+                                    Customer
+                                    <i class="now-ui-icons arrows-1_minimal-down"></i>
+                                </a>
+                            </div>
+                            <div id="Customer" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <input asp-for="CustomerId" class="form-control" type="hidden" />
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            Customer FirstName
+                                            <input asp-for="CustomerFirstName" class="form-control" required />
+                                            <span asp-validation-for="CustomerFirstName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            Customer LastName
+                                            <input asp-for="CustomerLastName" class="form-control" required />
+                                            <span asp-validation-for="CustomerLastName" class="text-danger"></span>
+                                        </div>
+                                     
+                                    </div>                                 
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            Customer Gender
+                                            @Html.DropDownListFor(model => model.CustomerSex, new SelectList(ViewBag.Sex),
+                        "Select Customer gender", new { id = "ddlCustomerGender", @class = "form-control" })
+                                            <span asp-validation-for="CustomerSex" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            Customer Gender
+                                            @Html.DropDownListFor(model => model.CustomerStatus, new SelectList(ViewBag.status),
+                        "Select Customer status", new { id = "ddlCustomerStatus", @class = "form-control" })
+                                            <span asp-validation-for="CustomerStatus" class="text-danger"></span>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group  col-md-6">
+                                            Customer PhoneNo
+                                            <input asp-for="CustomerPhoneNo" class="form-control" required />
+                                            <span asp-validation-for="CustomerPhoneNo" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group  col-md-6">
+                                            Customer Date of Birth
+                                            <input asp-for="CustomerDob" class="form-control" required />
+                                            <span asp-validation-for="CustomerDob" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            Customer Address
+                                            <input asp-for="CustomerAddress" class="form-control" required />
+                                            <span asp-validation-for="CustomerAddress" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group text-right">
+                                        <button class="btn btn-success" id="btnCustomerUpdate" type="submit" value="Update Record">
+                                            <i class="now-ui-icons ui-1_check"></i>
+                                            Update Record
+                                        </button>
+
+                                        <button class="btn btn-success" id="btnCustomer" type="submit" value="Save Record">
+                                            <i class="now-ui-icons ui-1_check"></i>
+                                            Save Record
+                                        </button>
+
+                                        <button class="btn btn-success" type="reset">
+                                            <i class="now-ui-icons ui-1_check"></i>
+                                            Clear
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
