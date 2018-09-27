@@ -1,10 +1,10 @@
 Asp.net CORE 2.0 with ready to use customer application
-To see the live demo of this application visit 
+To see the live demo of this application visit: https://sterlingasset.ngrok.io/SAMTL/ 
 
 REQUIREMENTS
 * Visual Studio 2017
 * .NET Core 2.0
-* Microsoft SQL Server 2016
+* Microsoft SQL Server 2012
 
 INSTALLATION
 1. Download the repository
